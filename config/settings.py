@@ -40,12 +40,15 @@ DJANGO_APPS = [
 ]
 
 # 다른 사람이 만든 apps 추가
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "django_countries",
+]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",  # APPS니까 users 폴더에 apps 안에서 가져오는 것.
     "rooms.apps.RoomsConfig",
+    "reviews.apps.ReviewsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
