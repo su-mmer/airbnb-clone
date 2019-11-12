@@ -49,6 +49,9 @@ PROJECT_APPS = [
     "users.apps.UsersConfig",  # APPS니까 users 폴더에 apps 안에서 가져오는 것.
     "rooms.apps.RoomsConfig",
     "reviews.apps.ReviewsConfig",
+    "reservations.apps.ReservationsConfig",
+    "lists.apps.ListsConfig",
+    "conversations.apps.ConversationsConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
