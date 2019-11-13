@@ -100,6 +100,11 @@ class Room(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    # 도시 저장할 때 첫 글자 자동 대문자
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)
+
     # room의 총 평점
     def total_rating(self):
         all_reviews = self.reviews.all()
