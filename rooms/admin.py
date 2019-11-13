@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from . import models
 
 
@@ -14,10 +15,18 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.rooms.count()
 
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
+
+    # inline을 집어넣어서 room과 photo를 연결
+    inlines = (PhotoInline,)
 
     fieldsets = (
         (
@@ -50,6 +59,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenities",  # 함수 작성해야함
         "count_photos",
+        "total_rating",
     )
 
     list_filter = (
@@ -62,6 +72,9 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
+
+    # user admin을 사용해서 host를 찾을 수 있게 한다
+    raw_id_fields = ("host",)
 
     search_fields = ("=city", "^host__username")
     # ^city: startwith 시작하는 단어로 서치
@@ -82,4 +95,10 @@ class PhotoAdmin(admin.ModelAdmin):
 
     """ Photo Admin Definition """
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        return mark_safe(f'<img width="50px" src = "{obj.file.url}"/>')
+
+    get_thumbnail.short_description = "Thumbnail"
+

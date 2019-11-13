@@ -32,7 +32,9 @@ class User(AbstractUser):
         (CURRENCY_KRW, "krw"),
     )
 
-    avatar = models.ImageField(blank=True)  # blank는 칸이 비워져도 save할 수 있도록.
+    avatar = models.ImageField(
+        upload_to="avatars", blank=True
+    )  # blank는 칸이 비워져도 save할 수 있도록.
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(blank=True)  # default 또는 null값을 허용해 db가 알 수 있도록.
     birthdate = models.DateField(blank=True, null=True)

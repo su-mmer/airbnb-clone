@@ -60,7 +60,7 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -99,3 +99,13 @@ class Room(core_models.TimeStampedModel):
     # 제목을 name이 뜨게끔
     def __str__(self):
         return self.name
+
+    # room의 총 평점
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            # all_ratings에 review 평균 더하기
+            all_ratings += review.rating_average()
+        return all_ratings / len(all_reviews)
+
