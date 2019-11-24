@@ -20,7 +20,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", include("core.urls", namespace="core")),
+    path("rooms/", include("rooms.urls", namespace="rooms")),
     path("admin/", admin.site.urls),
+    path("conversations", include("conversations.urls", namespace="conversations")),
 ]
 
 # 개발중이라면 폴더 안의 파일 제공.
